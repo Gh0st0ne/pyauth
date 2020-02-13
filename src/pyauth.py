@@ -47,9 +47,9 @@ def startMonitoring(distribution):
         try:
             yamlData = yaml.safe_load(stream)
             if isExist(yamlData[distribution]["auth"]):
-                Thread(target=analyzeLogs, args=(yamlData["debian"]["auth"],), kwargs={'key1':"SSH", 'key2':"FTP"}).start()
+                Thread(target=analyzeLogs, args=(yamlData[distribution]["auth"],), kwargs={'key1':"SSH", 'key2':"FTP"}).start()
             if isExist(yamlData[distribution]["postgres"]):
-                Thread(target=analyzeLogs, args=(yamlData["debian"]["postgres"],), kwargs={'key1':"Postgres"}).start()
+                Thread(target=analyzeLogs, args=(yamlData[distribution]["postgres"],), kwargs={'key1':"Postgres"}).start()
         except yaml.YAMLError as exc:
             print(exc)
 

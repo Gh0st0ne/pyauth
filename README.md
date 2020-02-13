@@ -21,7 +21,7 @@ In order to detect problems automatically, system administrators and operations 
 - sudo apt-get install python3-pip
 - git clone https://github.com/pioneerhfy/pyauth.git
     - cd pyauth && sudo pip3 install -r requirements.txt
-
+```
 ## Examples
 
 ```

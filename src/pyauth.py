@@ -60,7 +60,7 @@ def main():
     with open("distro.yaml", 'r') as distroStream:
         try:
             distroYaml = yaml.safe_load(distroStream)
-            if distroYaml["distro"]["debian"]:
+            if distroYaml["distro"]["debian"] or distroYaml["distro"]["ubuntu"]:
                 distribution = "debian"
             elif distroYaml["distro"]["centos"]:
                 distribution = "centos"

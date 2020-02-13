@@ -1,4 +1,4 @@
 distro:
-  debian: True
+  debian: True #Please use True and False format of python3
   centos: False
   ubuntu: False

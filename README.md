@@ -22,6 +22,12 @@ In order to detect problems automatically, system administrators and operations 
 - git clone https://github.com/pioneerhfy/pyauth.git
     - cd pyauth && sudo pip3 install -r requirements.txt
 ```
+
+## Configuration
+
+- In order to analyz your log files truely, you should set your distro using `distro.yaml` file
+- All log files' locations was set by default configuration, if you have different locations for your log files, you should set these log paths using `fileList.yaml` file.
+
 ## Examples
 
 ```

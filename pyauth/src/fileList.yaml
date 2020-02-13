@@ -1,0 +1,6 @@
+debian:
+  auth: "/var/log/auth.log"
+  postgres: "/var/log/postgresql/postgresql-11-main.log"
+centos:
+  secure: "/var/log/secure"
+  postgres: "/var/log/postgresql/postgresql-11-main.log"

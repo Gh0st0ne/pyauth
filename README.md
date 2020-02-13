@@ -25,7 +25,7 @@ In order to detect problems automatically, system administrators and operations 
 
 ## Configuration
 
-- In order to analyz your log files truely, you should set your distro using `distro.yaml` file
+- In order to analys your log files truely, you should set your distro using `distro.yaml` file
 - All log files' locations was set by default configuration, if you have different locations for your log files, you should set these log paths using `fileList.yaml` file.
 
 ## Examples

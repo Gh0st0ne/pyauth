@@ -42,13 +42,13 @@ def isExist(fileName):
     if os.path.isfile(fileName):
         return True
 
-def startMonitoring():
+def startMonitoring(distribution):
     with open("fileList.yaml", 'r') as stream:
         try:
             yamlData = yaml.safe_load(stream)
-            if isExist(yamlData["debian"]["auth"]):
+            if isExist(yamlData[distribution]["auth"]):
                 Thread(target=analyzeLogs, args=(yamlData["debian"]["auth"],), kwargs={'key1':"SSH", 'key2':"FTP"}).start()
-            if isExist(yamlData["debian"]["postgres"]):
+            if isExist(yamlData[distribution]["postgres"]):
                 Thread(target=analyzeLogs, args=(yamlData["debian"]["postgres"],), kwargs={'key1':"Postgres"}).start()
         except yaml.YAMLError as exc:
             print(exc)
@@ -56,7 +56,18 @@ def startMonitoring():
 
 def main():
     #We are staring our critical function in here
-    startMonitoring()
+    distribution = ""
+    with open("distro.yaml", 'r') as distroStream:
+        try:
+            distroYaml = yaml.safe_load(distroStream)
+            if distroYaml["distro"]["debian"]:
+                distribution = "debian"
+            elif distroYaml["distro"]["centos"]:
+                distribution = "centos"
+        except yaml.YAMLError as exc:
+            print(exc)
+    
+    startMonitoring(distribution)
 
 if __name__ == "__main__":
     sys.path.append('./')

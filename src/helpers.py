@@ -4,6 +4,7 @@ regexForSSHFail = re.compile("sshd.*failed", re.IGNORECASE)
 regexForSSHAccept = re.compile("sshd.*accepted password", re.IGNORECASE)
 regexForPostgresFail = re.compile("fatal:.*password.*failed", re.IGNORECASE)
 regexForFTPFail = re.compile("vsftpd:.*authentication failure", re.IGNORECASE)
+regexForSudoFail = re.compile("sudo:auth.*failure", re.IGNORECASE)
 
 class bcolors:
     HEADER = '\033[95m'

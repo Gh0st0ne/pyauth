@@ -3,7 +3,7 @@ import os
 import time
 import re
 import sys
-from parsers import parseSSH, parseFTP, parsePostgres
+from parsers import parseSSH, parseFTP, parsePostgres, parseSudo
 from threading import Thread
 import helpers
 
@@ -22,7 +22,7 @@ def monitorTheFile(logFile):
 def analyzeLogs(logFileName, **type):
     with open(logFileName, 'r') as logFile:
         logLines = monitorTheFile(logFile)
-        if type.get("key1") == "SSH" or type.get("key2") == "FTP":
+        if type.get("key1") == "SSH" or type.get("key2") == "FTP" or type.get("key3") == "SUDO":
             for line in logLines:
                 if re.findall(helpers.regexForSSHFail, line):
                     logEntry = parseSSH.parseSSHLine(line)
@@ -33,6 +33,9 @@ def analyzeLogs(logFileName, **type):
                 elif re.findall(helpers.regexForFTPFail, line):
                     logEntry = parseFTP.parseFTPLine(line)
                     print(helpers.bcolors.FAIL + "[FAILED] " + helpers.bcolors.ENDC + "%s" % logEntry.strip())
+                elif re.findall(helpers.regexForSudoFail, line):
+                    logEntry, user, tty = parseSudo.parseSudoLine(line)
+                    print(helpers.bcolors.FAIL + "[FAILED] " + helpers.bcolors.ENDC + "%s failed login attempt for user=%s and terminal=%s" % (logEntry.strip(), user, tty))
         elif type.get("key1") == "Postgres":
             for line in logLines:
                 if re.findall(helpers.regexForPostgresFail, line):
@@ -47,13 +50,14 @@ def isExist(fileName):
         return True
 
 
+# We're using threads to monitor seperate files simultaneously
 def startMonitoring(distribution):
     with open("fileList.yaml", 'r') as stream:
         try:
             yamlData = yaml.safe_load(stream)
             if isExist(yamlData[distribution]["auth"]):
                 Thread(target=analyzeLogs, args=(yamlData[distribution]["auth"],),
-                       kwargs={'key1': "SSH", 'key2': "FTP"}).start()
+                       kwargs={'key1': "SSH", 'key2': "FTP", 'key3': "SUDO"}).start()
             if isExist(yamlData[distribution]["postgres"]):
                 Thread(target=analyzeLogs, args=(yamlData[distribution]["postgres"],),
                        kwargs={'key1': "Postgres"}).start()

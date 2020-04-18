@@ -11,7 +11,8 @@ In order to detect problems automatically, system administrators and operations 
 - Monitor multiple log files continuously
 - SSH Parsing
 - Postgresql Parsing
-- FTP parsing
+- FTP Parsing
+- Sudo Parsing
 - Centos, debian and ubuntu support
 - Flexible configuration with YAML support
 

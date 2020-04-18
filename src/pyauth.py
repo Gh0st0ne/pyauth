@@ -35,7 +35,7 @@ def analyzeLogs(logFileName, **type):
                     print(helpers.bcolors.FAIL + "[FAILED] " + helpers.bcolors.ENDC + "%s" % logEntry.strip())
                 elif re.findall(helpers.regexForSudoFail, line):
                     logEntry, user, tty = parseSudo.parseSudoLine(line)
-                    print(helpers.bcolors.FAIL + "[FAILED] " + helpers.bcolors.ENDC + "%s failed login attempt for user=%s and terminal=%s" % (logEntry.strip(), user, tty))
+                    print(helpers.bcolors.FAIL + "[FAILED] " + helpers.bcolors.ENDC + "%s failed login attempt for user=%s and tty=%s" % (logEntry.strip(), user, tty))
         elif type.get("key1") == "Postgres":
             for line in logLines:
                 if re.findall(helpers.regexForPostgresFail, line):
